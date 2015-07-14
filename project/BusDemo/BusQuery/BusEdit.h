@@ -1,6 +1,6 @@
 #pragma once
 
-#include "dev/view/BusEdit.h"
+#include "dev/view/BusEditT.h"
 
 // CBusEdit
 

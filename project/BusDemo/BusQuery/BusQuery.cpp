@@ -10,6 +10,8 @@
 #define new DEBUG_NEW
 #endif
 
+#include "dev\app\BusApp.h"
+
 // CBusQueryApp
 
 BEGIN_MESSAGE_MAP(CBusQueryApp, CWinApp)
@@ -70,6 +72,10 @@ BOOL CBusQueryApp::InitInstance()
 	SetRegistryKey(_T("Local AppWizard-Generated Applications"));
 
 	CBusQueryDlg dlg;
+//-----------------------------------------------------------
+	BusApp<CBusQueryDlg> app(&dlg);
+	app.Initialize();
+//-----------------------------------------------------------
 	m_pMainWnd = &dlg;
 	INT_PTR nResponse = dlg.DoModal();
 	if (nResponse == IDOK)

@@ -48,7 +48,7 @@ public:
 	{
 		return m_y;
 	}
-	Station& operator=(const Staion& s)
+	Station& operator=(const Station& s)
 	{
 		if(this != &s){
 			m_name = s.m_name;
@@ -58,7 +58,7 @@ public:
 
 		return *this;
 	} 
-	Station& operator=(Staion&& s)
+	Station& operator=(Station&& s)
 	{
 		if(this != &s){
 			m_name = static_cast<std::string&&>(s.m_name);
@@ -118,7 +118,7 @@ public:
 		
 		return *this;
 	} 
-	std::vector<Station>& get_BusRoute() const throw()
+	std::vector<Station>& get_BusRoute() throw()
     {
         return this->m_BusStop;
     }
@@ -128,7 +128,7 @@ class RouteSet
 {
 private:
 	int m_Number;
-	std::vector<BusRoute> m_Busline;
+	std::vector<BusRoute> m_BusLine;
 public:
     RouteSet() throw() : m_Number(0)
     {
@@ -143,7 +143,7 @@ public:
 	}
     void Add(const BusRoute& b)
 	{
-		m_Busline.push_back(b);
+		m_BusLine.push_back(b);
 		++m_Number;
 	}
 	void Clear() throw()
@@ -170,14 +170,19 @@ public:
 		
 		return *this;
 	} 
-	std::vector<BusRoute>& get_BusLine() const
+	std::vector<BusRoute>& get_BusLine()
 	{
-        return this->m_Busline;
+        return this->m_BusLine;
     }
 };
 
 class BusDataModel
 {
+public:
+    bool Query(const std::string& ss, const std::string& es) const throw()
+    {
+         return true;     
+    }         
 private:
 	RouteSet m_RouteSet;
 };

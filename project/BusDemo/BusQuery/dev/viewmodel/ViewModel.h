@@ -1,10 +1,16 @@
 #pragma once
 #include<vector>
-#include"comand/QueryCommand.h"
+#include"command/QueryCommand.h"
 
-class BusViewModel:public Proxy_Notification<BusViewModel, INotification>
+#include "../model/model.h"
+
+class BusViewModel:public Proxy_Notification<BusViewModel, INotification>,
+                   public QueryCommand<BusViewModel>
 {
 public:
+    BusViewModel() throw() :QueryCommand<BusViewModel>(this)
+    {
+    }
 	void set_StartStop(const std::string& ss)
 	{
 		m_StartStop = ss;
@@ -13,7 +19,7 @@ public:
 	{
 		return m_StartStop;
 	}
-	RefPtr<std::string> get_StartStopRef()const throw()
+	RefPtr<std::string> get_StartStopRef() throw()
 	{
 		return RefPtr<std::string>(&m_StartStop);
 	}
@@ -26,7 +32,7 @@ public:
 	{
 		return m_EndStop;
 	}
-	RefPtr<std::string> get_EndStopRef()const throw()
+	RefPtr<std::string> get_EndStopRef() throw()
 	{
 		return RefPtr<std::string>(&m_EndStop);
 	}
@@ -43,9 +49,13 @@ public:
 	/*get xArray, get yArray*/
 
     
-    void Query(std::string& ss, std::string& es)
+    void Query(const std::string& ss, const std::string& es)
     {
-         
+         bool queryResult = m_BusModel.Deref().Query(ss, es);
+         m_StartStop = ss + "!";
+         m_EndStop = es + "!";
+         Fire_OnPropertyChange(std::string("StartStop"));
+         Fire_OnPropertyChange(std::string("EndStop"));
     }
 
 private:

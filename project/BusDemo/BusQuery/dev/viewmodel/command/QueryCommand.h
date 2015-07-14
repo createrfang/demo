@@ -13,21 +13,17 @@ public:
     {
          return RefPtrHelper::TypeCast<QueryCommand<T>, ICommandEx>(RefPtr<QueryCommand<T>>(this));   
     }
-	void SetStartStop(const std::string& ss)
-	{
-		m_StartStop = ss;
-	}
-	void SetEndStop(const std::string& es)
-	{
-        m_EndStop = es;
-	}
+    virtual void SetParameter(const RefPtr<ICommandParameter>& param)
+    {
+       m_param = param;
+    }
 	virtual void Exec()
 	{
-        m_pviemod->Query(m_StartStop, m_EndStop);
+        RefPtr<TwoStringParameter> p = RefPtrHelper::TypeCast<ICommandParameter, TwoStringParameter>(m_param);
+        m_pviemod->Query(p.Deref().get_S1(), p.Deref().get_S2());
     }
 
 private:
 	T* m_pviemod;
-	std::string m_StartStop;
-	std::string m_EndStop;
+	RefPtr<ICommandParameter> m_param;
 };

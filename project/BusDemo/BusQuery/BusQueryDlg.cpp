@@ -62,6 +62,7 @@ BEGIN_MESSAGE_MAP(CBusQueryDlg, CDialogEx)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
+	ON_BN_CLICKED(IDC_BTN_QUERY, &CBusQueryDlg::OnBnClickedBtnQuery)
 END_MESSAGE_MAP()
 
 
@@ -98,8 +99,7 @@ BOOL CBusQueryDlg::OnInitDialog()
 
 	// TODO: Add extra initialization here
 	//----------------------------------------------------
-	m_editStart.SubclassWindow(GetDlgItem(IDC_EDIT_START));
-	m_editEnd.SubclassWindow(GetDlgItem(IDC_EDIT_END));
+    InitUI();
 	//----------------------------------------------------
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
@@ -154,3 +154,18 @@ HCURSOR CBusQueryDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
+
+
+void CBusQueryDlg::OnBnClickedBtnQuery()
+{
+	// TODO: Add your control notification handler code here
+	//---------------------------------------------------
+	CString str1, str2;
+	m_editStart.GetWindowText(str1);
+	m_editEnd.GetWindowText(str2);
+	USES_CONVERSION;
+	std::string s1(T2CA(str1));
+	std::string s2(T2CA(str2));
+	CallQueryCommand(s1, s2);
+	//---------------------------------------------------
+}

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <assert.h>
 #include <vector>
 #include <string>
 
@@ -64,7 +65,7 @@ public:
     template <class T, class TBase>
     static RefPtr<TBase> TypeCast(const RefPtr<T>& t) throw()
     {
-        return RefPtr<TBase>(static_cast<TBase*>(&(t.Deref())));
+        return RefPtr<TBase>((TBase*)static_cast<const TBase*>(&(t.Deref())));
     }
 };
 
@@ -104,8 +105,13 @@ public:
     }
 };
 
+class ICommandParameter
+{
+};
+
 class ICommandEx
 {
 public:
+    virtual void SetParameter(const RefPtr<ICommandParameter>& param) = 0;
 	virtual void Exec() = 0;
 };
