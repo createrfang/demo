@@ -101,6 +101,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BusEdit.h" />
     <ClInclude Include="BusQuery.h" />
     <ClInclude Include="BusQueryDlg.h" />
     <ClInclude Include="Resource.h" />
@@ -108,6 +109,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BusEdit.cpp" />
     <ClCompile Include="BusQuery.cpp" />
     <ClCompile Include="BusQueryDlg.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -127,4 +129,9 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties RESOURCE_FILE="BusQuery.rc" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>

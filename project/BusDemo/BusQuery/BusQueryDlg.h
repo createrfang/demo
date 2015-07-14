@@ -4,6 +4,9 @@
 
 #pragma once
 
+//-----------------------------------------------------
+#include "BusEdit.h"
+//-----------------------------------------------------
 
 // CBusQueryDlg dialog
 class CBusQueryDlg : public CDialogEx
@@ -14,6 +17,12 @@ public:
 
 // Dialog Data
 	enum { IDD = IDD_BUSQUERY_DIALOG };
+
+//------------------------------------------------------------
+    CBusEdit m_editStart;
+    CBusEdit m_editEnd;
+//------------------------------------------------------------
+
 
 	protected:
 	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV support
