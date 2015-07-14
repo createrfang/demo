@@ -10,8 +10,6 @@
 #define new DEBUG_NEW
 #endif
 
-#include "dev/common/common.h"
-
 // CBusQueryApp
 
 BEGIN_MESSAGE_MAP(CBusQueryApp, CWinApp)

@@ -9,93 +9,175 @@ private:
 	std::string m_name;
 	double m_x;
 	double m_y;
-public:	
+public:
+    Station() throw() : m_x(0.0), m_y(0.0)
+    {
+    }
+	Station(const Station& s){
+		m_name = s.m_name;
+		m_x = s.m_x;
+		m_y = s.m_y;
+	}
+	Station(Station&& s){
+		m_name = static_cast<std::string&&>(s.m_name);
+		m_x = s.m_x;
+		m_y = s.m_y;
+	}
+
 	void set_Name(const std::string& name)
 	{
-		this->name = name;
+		this->m_name = name;
 	}
 	void set_x(double x) throw()
 	{
-		this->x = x;
+		this->m_x = x;
 	}
 	void set_y(double y) throw()
 	{
-		this->y = y;
+		this->m_y = y;
 	}
-	std::string get_Name() const throw()
+	const std::string& get_Name() const throw()
 	{
-		return name;
+		return m_name;
 	}
-	double get_x() const throw() 
+	double get_x() const throw()
 	{
-		return x;
+		return m_x;
 	}
 	double get_y() const throw()
 	{
-		return y;
+		return m_y;
 	}
 	Station& operator=(const Staion& s)
 	{
-		if(this != &s)
-		{
-            name = s.name;
-    		x = s.x;
-    		y = s.y;     
-        }
-      
+		if(this != &s){
+			m_name = s.m_name;
+			m_x = s.m_x;
+			m_y = s.m_y;
+		}
+
 		return *this;
 	} 
 	Station& operator=(Staion&& s)
 	{
 		if(this != &s){
-           name = static_cast<std::string&&>(s.name);
-           x = s.x;
-		   y = s.y;
-        }
-        
+			m_name = static_cast<std::string&&>(s.m_name);
+			m_x = s.m_x;
+			m_y = s.m_y;
+		}
 
 		return *this;
-	}
+	} 
 };
 
 class BusRoute
 {
+private:
+	int m_Number;
+	std::vector<Station> m_BusStop;
+
 public:
-	int Number;
-	std::vector<Station> BusStop;
+	BusRoute() throw() : m_Number(0) 
+    {
+    }
+    BusRoute(BusRoute&& b){
+		m_Number = b.m_Number;
+		m_BusStop = static_cast<std::vector<Station>&&>(b.m_BusStop);
+	}
+	BusRoute(const BusRoute& b){
+		m_Number = b.m_Number;
+		m_BusStop = b.m_BusStop;
+	}
+    
+    void Add(const Station& s)
+	{
+		m_BusStop.push_back(s);
+		++m_Number;
+	}
+	void Clear() throw()
+	{
+		m_BusStop.clear();
+		m_Number = 0;
+	}
 	
-	void Add(const Station& s)
+	BusRoute& operator= (BusRoute&& b)
 	{
-		BusStop.push_back(s);
-		++Number;
-	}
-	void Clear()
+		if(this != &b){
+			m_Number = b.m_Number;
+			m_BusStop = static_cast<std::vector<Station>&&>(b.m_BusStop);
+		}
+		
+		return *this;
+	} 
+	BusRoute& operator= (const BusRoute& b)
 	{
-		BusStop.clear();
-		Number = 0;
-	}
+		if(this != &b){
+			m_Number = b.m_Number;
+			m_BusStop = b.m_BusStop;
+		}
+		
+		return *this;
+	} 
+	std::vector<Station>& get_BusRoute() const throw()
+    {
+        return this->m_BusStop;
+    }
 };
 
 class RouteSet
 {
+private:
+	int m_Number;
+	std::vector<BusRoute> m_Busline;
 public:
-	int Number;
-	std::vector<BusRoute> Busline;
-
-	void Add(const BusRoute& b)
-	{
-		Busline.push_back(b);
-		++Number;
+    RouteSet() throw() : m_Number(0)
+    {
+    }
+	RouteSet(RouteSet&& r){
+		m_Number = r.m_Number;
+		m_BusLine = static_cast<std::vector<BusRoute>&&>(r.m_BusLine);
 	}
-	void Clear()
-	{
-		BusLine.clear();
-		Number = 0;
+	RouteSet(const RouteSet& r){
+		m_Number = r.m_Number;
+		m_BusLine = r.m_BusLine;
 	}
+    void Add(const BusRoute& b)
+	{
+		m_Busline.push_back(b);
+		++m_Number;
+	}
+	void Clear() throw()
+	{
+		m_BusLine.clear();
+		m_Number = 0;
+	}
+	
+	RouteSet& operator= (RouteSet&& r)
+	{
+		if(this != &r){
+			m_Number = r.m_Number;
+			m_BusLine = static_cast<std::vector<BusRoute>&&>(r.m_BusLine);
+		}
+		
+		return *this;
+	} 
+	RouteSet& operator= (const RouteSet& r)
+	{
+		if(this != &r){
+			m_Number = r.m_Number;
+			m_BusLine = r.m_BusLine;
+		}
+		
+		return *this;
+	} 
+	std::vector<BusRoute>& get_BusLine() const
+	{
+        return this->m_Busline;
+    }
 };
 
 class BusDataModel
 {
-public:
-	RouteSet routeSet;
+private:
+	RouteSet m_RouteSet;
 };
