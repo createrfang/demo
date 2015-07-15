@@ -4,7 +4,7 @@
 
 #include "../model/model.h"
 
-class BusViewModel:public Proxy_Notification<BusViewModel, INotification>,
+class BusViewModel:public Proxy_Notification<BusViewModel>,
                    public QueryCommand<BusViewModel>
 {
 public:
@@ -56,6 +56,7 @@ public:
          m_EndStop = es + "!";
          Fire_OnPropertyChange(std::string("StartStop"));
          Fire_OnPropertyChange(std::string("EndStop"));
+         Fire_OnCommandComplete(std::string("Query"), false);
     }
 
 private:

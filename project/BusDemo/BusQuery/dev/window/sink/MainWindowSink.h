@@ -23,4 +23,11 @@ public:
             pT->m_editEnd.SetWindowText(str);
         }
     }
-};
+ 	virtual void OnCommandComplete(const std::string& str, bool bOK)
+ 	{
+ 		if( str == "Query") {
+	 		if( !bOK )
+				AfxMessageBox(_T("error"));
+ 		}
+ 	}
+ };

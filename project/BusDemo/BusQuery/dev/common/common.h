@@ -89,20 +89,29 @@ class INotification
 {
 public:
 	virtual void OnPropertyChange(const std::string& str) = 0;
+	virtual void OnCommandComplete(const std::string& str, bool bOK) = 0;
 };
 
-template <class T, class TInterface>
-class Proxy_Notification : public NotificationImpl<TInterface>
+template <class T>
+class Proxy_Notification : public NotificationImpl<INotification>
 {
 public:
 	void Fire_OnPropertyChange(const std::string& str)
 	{
-        std::vector<RefPtr<TInterface>>& vec = GetNotificationArray();
+        std::vector<RefPtr<INotification>>& vec = GetNotificationArray();
         auto iter(vec.begin());
         for( ; iter != vec.end(); ++ iter ) {
             (*iter).Deref().OnPropertyChange(str);
         }
     }
+	void Fire_OnCommandComplete(const std::string& str, bool bOK)
+	{
+        std::vector<RefPtr<INotification>>& vec = GetNotificationArray();
+        auto iter(vec.begin());
+        for( ; iter != vec.end(); ++ iter ) {
+            (*iter).Deref().OnCommandComplete(str, bOK);
+        }
+	}
 };
 
 class ICommandParameter
