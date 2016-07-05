@@ -20,7 +20,9 @@ public:
 	CAboutDlg();
 
 // Dialog Data
+#ifdef AFX_DESIGN_TIME
 	enum { IDD = IDD_ABOUTBOX };
+#endif
 
 	protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
@@ -30,7 +32,7 @@ protected:
 	DECLARE_MESSAGE_MAP()
 };
 
-CAboutDlg::CAboutDlg() : CDialogEx(CAboutDlg::IDD)
+CAboutDlg::CAboutDlg() : CDialogEx(IDD_ABOUTBOX)
 {
 }
 
@@ -48,7 +50,7 @@ END_MESSAGE_MAP()
 
 
 CBusQueryDlg::CBusQueryDlg(CWnd* pParent /*=NULL*/)
-	: CDialogEx(CBusQueryDlg::IDD, pParent)
+	: CDialogEx(IDD_BUSQUERY_DIALOG, pParent)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
@@ -62,7 +64,9 @@ BEGIN_MESSAGE_MAP(CBusQueryDlg, CDialogEx)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
+//----------------------------------------------------------------
 	ON_BN_CLICKED(IDC_BTN_QUERY, &CBusQueryDlg::OnBnClickedBtnQuery)
+//----------------------------------------------------------------
 END_MESSAGE_MAP()
 
 
@@ -153,8 +157,6 @@ HCURSOR CBusQueryDlg::OnQueryDragIcon()
 {
 	return static_cast<HCURSOR>(m_hIcon);
 }
-
-
 
 void CBusQueryDlg::OnBnClickedBtnQuery()
 {
