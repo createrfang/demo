@@ -49,14 +49,14 @@ public:
 	/*get xArray, get yArray*/
 
     
-    void Query(const std::string& ss, const std::string& es)
+    bool Query(const std::string& ss, const std::string& es)
     {
          bool queryResult = m_BusModel.Deref().Query(ss, es);
          m_StartStop = ss + "!";
          m_EndStop = es + "!";
          Fire_OnPropertyChange(std::string("StartStop"));
          Fire_OnPropertyChange(std::string("EndStop"));
-         Fire_OnCommandComplete(std::string("Query"), false);
+         return queryResult;
     }
 
 private:

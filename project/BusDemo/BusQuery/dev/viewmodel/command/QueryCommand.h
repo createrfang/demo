@@ -20,8 +20,9 @@ public:
 	virtual void Exec()
 	{
         RefPtr<TwoStringParameter> p = RefPtrHelper::TypeCast<ICommandParameter, TwoStringParameter>(m_param);
-        m_pviemod->Query(p.Deref().get_S1(), p.Deref().get_S2());
-    }
+        bool bResult = m_pviemod->Query(p.Deref().get_S1(), p.Deref().get_S2());
+        Fire_OnCommandComplete(std::string("Query"), bResult);
+	}
 
 private:
 	T* m_pviemod;
