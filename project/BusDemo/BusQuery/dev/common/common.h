@@ -123,4 +123,19 @@ class ICommandEx
 public:
     virtual void SetParameter(const RefPtr<ICommandParameter>& param) = 0;
 	virtual void Exec() = 0;
+/*
+virtual shared_ptr<ICommandEx> get_Undo() = 0;
+virtual shared_ptr<ICommandEx> get_Redo() = 0;
+*/
+};
+
+class CommandManager
+{
+public:
+/*
+
+*/
+private:
+	std:vector<shared_ptr<ICommandEx>> m_vecUndo;
+	std:vector<shared_ptr<ICommandEx>> m_vecRedo;
 };
