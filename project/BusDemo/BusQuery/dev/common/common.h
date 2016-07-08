@@ -126,6 +126,7 @@ public:
 /*
 virtual shared_ptr<ICommandEx> get_Undo() = 0;
 virtual shared_ptr<ICommandEx> get_Redo() = 0;
+use make_shared, then the virtual destructor is not necessary. (RAII)
 */
 };
 
