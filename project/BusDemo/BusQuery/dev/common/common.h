@@ -140,3 +140,28 @@ private:
 	std:vector<shared_ptr<ICommandEx>> m_vecUndo;
 	std:vector<shared_ptr<ICommandEx>> m_vecRedo;
 };
+
+class IStateBase
+{
+public:
+	virtual int Process(unsigned int uEvent) = 0;
+};
+
+class StateManager
+{
+public:
+/*
+viud Add(unsigned int uEvent, const shared_ptr<IStateBase>& spState)
+{
+...
+}
+void Process(unsigned int uEvent)
+{
+...
+}
+...
+*/
+private:
+	int m_iCurrentState;
+	std::map<unsigned int, shared_ptr<IStateBase>> m_map;
+};
